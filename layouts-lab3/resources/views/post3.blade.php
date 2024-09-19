@@ -26,14 +26,14 @@
             </select>
         </div>
 
-        <div class="content"></div>
+        <div class="content">
             <h2 id="year-title">Lamborghini Huracan</h2>
             <p id="year-description">This is a simple HTML page to demonstrate basic HTML structure and styling.</p>
             <img id="year-image" src="" alt="Yearly Image">
             <p id="image-description">Additional description will appear here.</p>
-            
         </div>
-        <div class="comments-section"></div>
+
+        <div class="comments-section">
             <h2>Comments</h2>
             <form class="comment-form" id="commentForm">
                 <input type="text" id="name" placeholder="Your Name" required>
@@ -43,8 +43,8 @@
             <ul class="comments-list" id="commentsList"></ul>
         </div>
     </main>
+@endsection
 
-    @section('scripts')
-    <script src="{{ asset('js/post3.js') }}"></script>
-    @endsection
+@section('scripts')
+<script src="{{ asset('js/post3.js') }}"></script>
 @endsection

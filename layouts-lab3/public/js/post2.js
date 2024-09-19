@@ -39,31 +39,59 @@ function updateContent() {
     document.getElementById('image-description').innerText = contentData.imageDescription;
 }
 
-// Initialize with default year
+
 updateContent();
 
-document.getElementById('commentForm').addEventListener('submit', function(event) {
-event.preventDefault();
 
-const name = document.getElementById('name').value;
-const comment = document.getElementById('comment').value;
-const commentsList = document.getElementById('commentsList');
+const postIdentifier = document.getElementById('year-title').innerText;
 
-if (name && comment) {
-const listItem = document.createElement('li');
-listItem.innerHTML = `
-    <strong>${name}:</strong> ${comment}
-    <button onclick="deleteComment(this)">Delete</button>
-`;
-commentsList.appendChild(listItem);
 
-// Clear the form
-document.getElementById('name').value = '';
-document.getElementById('comment').value = '';
+function loadComments() {
+    const comments = JSON.parse(localStorage.getItem(`comments-${postIdentifier}`)) || [];
+    const commentsList = document.getElementById('commentsList');
+    commentsList.innerHTML = '';
+    comments.forEach((comment, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `${comment.name}: ${comment.comment} <button onclick="deleteComment(${index})">Delete</button>`;
+        commentsList.appendChild(li);
+    });
 }
+
+
+function saveComment(name, comment) {
+    const comments = JSON.parse(localStorage.getItem(`comments-${postIdentifier}`)) || [];
+    comments.push({ name, comment });
+    localStorage.setItem(`comments-${postIdentifier}`, JSON.stringify(comments));
+}
+
+
+function deleteComment(index) {
+    const comments = JSON.parse(localStorage.getItem(`comments-${postIdentifier}`)) || [];
+    comments.splice(index, 1);
+    localStorage.setItem(`comments-${postIdentifier}`, JSON.stringify(comments));
+    loadComments();
+}
+
+
+document.getElementById('commentForm').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+
+    const name = document.getElementById('name').value;
+    const comment = document.getElementById('comment').value;
+    const commentsList = document.getElementById('commentsList');
+
+   
+    const li = document.createElement('li');
+    const index = commentsList.children.length;
+    li.innerHTML = `${name}: ${comment} <button onclick="deleteComment(${index})">Delete</button>`;
+    commentsList.appendChild(li);
+
+  
+    saveComment(name, comment);
+
+   
+    document.getElementById('commentForm').reset();
 });
 
-function deleteComment(button) {
-const commentItem = button.parentElement;
-commentItem.remove();
-}
+
+loadComments();

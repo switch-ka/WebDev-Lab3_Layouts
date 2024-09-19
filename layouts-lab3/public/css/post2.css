@@ -57,11 +57,11 @@ footer {
 
 .image-container {
     margin: 20px auto;
-    width: 100%; 
-    max-width: 1200px; 
+    width: 100%; /* Ensure it uses full width */
+    max-width: 1200px; /* Max width for large screens */
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: center; /* Center-aligns children */
 }
 .image-container img {
     max-width: 100%;
@@ -146,3 +146,4 @@ footer {
 .comments-list button:hover {
     background: #a00;
 }
+

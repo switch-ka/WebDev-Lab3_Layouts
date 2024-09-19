@@ -57,7 +57,7 @@ footer {
 
 .image-container {
     margin: 20px auto;
-    width: 100%; /* Ensure it uses full width */
+    width: 100%;
     max-width: 1200px; /* Max width for large screens */
     display: flex;
     flex-direction: column;
